@@ -3,7 +3,5 @@ esm/
 umd/
 dist/
 node_modules/
-package-lock.json
 npm-debug.log
-__unittest*
 .hggitignore
