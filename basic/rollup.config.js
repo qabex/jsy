@@ -21,7 +21,7 @@ function add_jsy(name) {
     output: [
       { file: `cjs/${name}.js`, format: 'cjs', exports:'named', sourcemap },
       { file: `umd/${name}.js`, format: 'umd', name, exports:'named', sourcemap },
-      { file: `esm/${name}.js`, format: 'es', sourcemap },
+      { file: `esm/${name}.mjs`, format: 'es', sourcemap },
     ],
     plugins, external })
 }

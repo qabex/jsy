@@ -36,7 +36,7 @@ function add_jsy(src_name, inc_min) {
       plugins: plugins_nodejs, external,
       output: [
         { file: `cjs/${src_name}.js`, format: 'cjs', exports:'named', sourcemap },
-        { file: `esm/${src_name}.js`, format: 'es', sourcemap } ]})
+        { file: `esm/${src_name}.mjs`, format: 'es', sourcemap } ]})
 
   if (plugins_web)
     configs.push({
@@ -44,7 +44,7 @@ function add_jsy(src_name, inc_min) {
       plugins: plugins_web, external,
       output: [
         { file: `umd/${src_name}${inc_min ? '.dbg' : ''}.js`, format: 'umd', name:module_name, exports:'named', sourcemap },
-        { file: `esm/web/${src_name}.js`, format: 'es', sourcemap } ]})
+        { file: `esm/web/${src_name}.mjs`, format: 'es', sourcemap } ]})
 
   if (inc_min && 'undefined' !== typeof plugins_min)
     configs.push({
