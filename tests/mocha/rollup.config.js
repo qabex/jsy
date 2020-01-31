@@ -6,10 +6,14 @@ const plugins = [
   rpi_resolve(),
 ]
 
-const plugins_nodejs = [ rpi_jsy({defines: {PLAT_NODEJS: true}}) ].concat(plugins)
+const plugins_nodejs = [
+  rpi_jsy({defines: {PLAT_NODEJS: true}}),
+  ... plugins,
+]
 const plugins_web = [
   rpi_jsy({defines: {PLAT_WEB: true}}),
-].concat(plugins)
+  ... plugins,
+]
 
 
 export default [

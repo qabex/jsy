@@ -1,4 +1,4 @@
-# qabex/web-jsy
+# qabex/jsy
 
 Templates for JSY development
 
