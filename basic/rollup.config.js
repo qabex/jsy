@@ -15,13 +15,15 @@ const plugins = [rpi_jsy()]
 add_jsy('index')
 
 
-function add_jsy(name) {
+function add_jsy(src_name, module_name) {
+  if (!module_name) module_name = src_name
+
   configs.push({
-    input: `code/${name}.jsy`,
+    input: `code/${src_name}.jsy`,
     output: [
-      { file: `cjs/${name}.js`, format: 'cjs', exports:'named', sourcemap },
-      { file: `umd/${name}.js`, format: 'umd', name, exports:'named', sourcemap },
-      { file: `esm/${name}.mjs`, format: 'es', sourcemap },
+      { file: `esm/${src_name}.mjs`, format: 'es', sourcemap },
+      { file: `cjs/${src_name}.cjs`, format: 'cjs', exports:'named', sourcemap },
+      { file: `umd/${src_name}.js`, format: 'umd', name: module_name, exports:'named', sourcemap },
     ],
     plugins, external })
 }
