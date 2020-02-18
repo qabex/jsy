@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset="utf-8">
+  <title>JSY Bench Testing</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/platform@1.3.5/platform.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/benchmark@2.1.4/benchmark.min.js"></script>
+</head>
+<body>
+
+<script>
+  window.benchmark = window.Benchmark
+  window.require = module => window[module] || window[module.replace('-', '_')]
+</script>
+<script src='./iife/bench_this.js'></script>
+<script>
+</script>
+</body>
+</html>
