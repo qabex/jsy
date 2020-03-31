@@ -1,4 +1,4 @@
-import rpi_jsy from 'rollup-plugin-jsy-lite'
+import rpi_jsy from 'rollup-plugin-jsy'
 
 const configs = []
 export default configs

@@ -4,7 +4,7 @@
 
 npm install --save-dev \
   rollup @rollup/plugin-node-resolve \
-  rollup-plugin-jsy-lite
+  rollup-plugin-jsy
 
 npm install --save-prod \
   mocha chai
