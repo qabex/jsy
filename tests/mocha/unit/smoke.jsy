@@ -1,6 +1,6 @@
-const { assert } = require('chai')
+const { assert, expect } = require('chai')
 
-describe @ 'smoke', @=> ::
-  it @ 'basics', @=> ::
+describe @ 'smoke', @::
+  it @ 'basics', @::
     assert @ 'works'
 
