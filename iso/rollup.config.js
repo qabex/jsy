@@ -1,58 +1,67 @@
 import pkg from './package.json'
 import rpi_jsy from 'rollup-plugin-jsy'
+// import rpi_dgnotify from '@rollup-plugin-dgnotify'
+// import rpi_resolve from '@rollup/plugin-node-resolve'
+// import rpi_commonjs from '@rollup/plugin-commonjs'
+
+
 const pkg_name = (pkg.name || 'private').replace('-', '_')
+
+const _cfg_ = {
+  plugins: [
+    // rpi_dgnotify(),
+    // rpi_resolve(),  // Allow Node module resolution -- https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
+    // rpi_commonjs(), // Allow CommonJS use -- https://github.com/rollup/plugins/tree/master/packages/commonjs#readme
+  ],
+  external: [],
+}
+
+
+const cfg_nodejs = { ..._cfg_,
+  plugins: [
+    rpi_jsy({defines: {PLAT_NODEJS: true}}),
+    ... _cfg_.plugins ]}
+
+const cfg_web = { ..._cfg_,
+  plugins: [
+    rpi_jsy({defines: {PLAT_WEB: true}}),
+    ... _cfg_.plugins ]}
+
+/// Allow Minification -- https://github.com/TrySound/rollup-plugin-terser
+// import { terser as rpi_terser } from 'rollup-plugin-terser'
+// const cfg_web_min = { ... _cfg_,
+//   plugins: [ ... _cfg_.plugins, rpi_terser() ]}
+
+
+const _out_ = { sourcemap: true }
 
 const configs = []
 export default configs
 
-const sourcemap = true
-const external = []
 
-const plugins = []
-
-// Allow Node module resolution -- https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
-/// import rpi_resolve from '@rollup/plugin-node-resolve'
-/// plugins.push(rpi_resolve())
-
-const plugins_nodejs = [
-  rpi_jsy({defines: {PLAT_NODEJS: true}}),
-  ... plugins ]
-const plugins_web = [
-  rpi_jsy({defines: {PLAT_WEB: true}}),
-  ... plugins ]
-
-
-// Allow Minification -- https://github.com/TrySound/rollup-plugin-terser
-/// import { terser as rpi_terser } from 'rollup-plugin-terser'
-/// const plugins_min = plugins_web.concat([ rpi_terser({}) ])
-
-
-add_jsy('index', pkg_name)
+add_jsy('index', {name: pkg_name})
 //add_jsy('other module')
 
 
-function add_jsy(src_name, module_name) {
-  if (!module_name) module_name = `${pkg_name}_${src_name}`
+function add_jsy(src_name, opt={}) {
+  const module_name = opt.name || `${pkg_name}_${src_name}`
 
-  if (plugins_nodejs)
-    configs.push({
+  if (cfg_nodejs)
+    configs.push({ ... cfg_nodejs,
       input: `code/${src_name}.jsy`,
-      plugins: plugins_nodejs, external,
       output: [
-        { file: `cjs/${src_name}.cjs`, format: 'cjs', exports:'named', sourcemap },
-        { file: `esm/${src_name}.mjs`, format: 'es', sourcemap } ]})
+        { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports:'named' },
+        { ..._out_, file: `esm/${src_name}.mjs`, format: 'es' } ]})
 
-  if (plugins_web)
-    configs.push({
+  if (cfg_nodejs)
+    configs.push({ ... cfg_nodejs,
       input: `code/${src_name}.jsy`,
-      plugins: plugins_web, external,
       output: [
-        { file: `umd/${src_name}.js`, format: 'umd', name:module_name, exports:'named', sourcemap },
-        { file: `esm/web/${src_name}.js`, format: 'es', sourcemap } ]})
+        { ..._out_, file: `umd/${src_name}.js`, format: 'umd', name:module_name, exports:'named' },
+        { ..._out_, file: `esm/web/${src_name}.js`, format: 'es' } ]})
 
-  if ('undefined' !== typeof plugins_min && plugins_min)
-    configs.push({
+  if ('undefined' !== typeof cfg_web_min)
+    configs.push({ ... cfg_web_min,
       input: `code/${src_name}.jsy`,
-      plugins: plugins_min, external,
-      output: { file: `umd/${src_name}.min.js`, format: 'umd', name:module_name, exports:'named' }})
+      output: { ..._out_, file: `umd/${src_name}.min.js`, format: 'umd', name:module_name, exports:'named', sourcemap: false }})
 }

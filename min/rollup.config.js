@@ -1,9 +1,8 @@
+import pkg from './package.json'
 import rpi_jsy from 'rollup-plugin-jsy'
 // import rpi_dgnotify from '@rollup-plugin-dgnotify'
 // import rpi_resolve from '@rollup/plugin-node-resolve'
 // import rpi_commonjs from '@rollup/plugin-commonjs'
-// import { terser as rpi_terser } from 'rollup-plugin-terser'
-
 
 const _cfg_ = {
   plugins: [
@@ -24,20 +23,10 @@ const _cfg_ = {
 const _out_ = { sourcemap: true }
 
 
-const configs = []
-export default configs
+export default { ..._cfg_,
+  input: `code/index.jsy`,
+  output: [
+    { ..._out_, file: pkg.module, format: 'es' },
+    { ..._out_, file: pkg.main, format: 'cjs', exports:'default' },
+  ]}
 
-
-add_jsy('index')
-
-
-
-function add_jsy(src_name, opt={}) {
-  configs.push({ ..._cfg_,
-    input: `code/${src_name}.jsy`,
-    output: [
-      { ..._out_, file: `esm/${src_name}.mjs`, format: 'es' },
-      { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports: opt.exports || 'named' },
-      //{ ..._out_, file: `umd/${src_name}.js`, format: 'umd', name: opt.name, exports:'named' },
-    ]})
-}
