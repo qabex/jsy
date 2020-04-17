@@ -1,6 +1,6 @@
 import pkg from './package.json'
 import rpi_jsy from 'rollup-plugin-jsy'
-// import rpi_dgnotify from '@rollup-plugin-dgnotify'
+import rpi_dgnotify from 'rollup-plugin-dgnotify'
 // import rpi_resolve from '@rollup/plugin-node-resolve'
 // import rpi_commonjs from '@rollup/plugin-commonjs'
 
@@ -9,7 +9,7 @@ const pkg_name = (pkg.name || 'private').replace('-', '_')
 
 const _cfg_ = {
   plugins: [
-    // rpi_dgnotify(),
+    rpi_dgnotify(),
     // rpi_resolve(),  // Allow Node module resolution -- https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
     // rpi_commonjs(), // Allow CommonJS use -- https://github.com/rollup/plugins/tree/master/packages/commonjs#readme
   ],

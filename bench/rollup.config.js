@@ -1,28 +1,33 @@
 import rpi_jsy from 'rollup-plugin-jsy'
+import rpi_dgnotify from 'rollup-plugin-dgnotify'
+// import rpi_resolve from '@rollup/plugin-node-resolve'
+// import rpi_commonjs from '@rollup/plugin-commonjs'
+
+const _cfg_ = {
+  plugins: [
+    rpi_dgnotify(),
+    // rpi_resolve(),  // Allow Node module resolution -- https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
+    // rpi_commonjs(), // Allow CommonJS use -- https://github.com/rollup/plugins/tree/master/packages/commonjs#readme
+
+    rpi_jsy({defines:{}}),
+  ],
+  external: [],
+}
+
+const _out_ = { sourcemap: true, exports:'named' }
 
 const configs = []
 export default configs
-
-const sourcemap = true
-const external = []
-const plugins = [rpi_jsy()]
-
-// Allow Node module resolution -- https://github.com/rollup/plugins/tree/master/packages/node-resolve#readme
-/// import rpi_resolve from '@rollup/plugin-node-resolve'
-/// plugins.push(rpi_resolve())
 
 
 add_jsy('bench_this')
 
 
 function add_jsy(src_name, module_name) {
-  if (!module_name) module_name = src_name
-
-  configs.push({
+  configs.push({ ..._cfg_,
     input: `${src_name}.jsy`,
     output: [
-      { file: `cjs/${src_name}.cjs`, format: 'cjs', exports:'named', sourcemap },
-      { file: `iife/${src_name}.js`, format: 'iife', name: module_name, exports:'named', sourcemap },
-    ],
-    plugins, external })
+      { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs',  },
+      { ..._out_, file: `iife/${src_name}.js`, format: 'iife', name: src_name },
+    ]})
 }
