@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "files": [
+    "cjs/",
+    "code/",
+    "esm/"
+  ],
+  "main": "./cjs/index.cjs",
+  "module": "./esm/index.mjs",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "start": "qsrv -- index.html ./esm",
+    "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
+    "build": "rollup --config",
+    "watch": "npm -s run build -- --watch",
+    "pretest": "npm -s run build",
+    "test": "true"
+  }
+}
