@@ -1,14 +1,18 @@
-import @{}
-  ArcRotateCamera, HemisphericLight, PointLight, Vector3, MeshBuilder
-  Engine as BabylonEngine, Scene as BabylonScene
-from "@babylonjs/core"
+const @{}
+  Engine: BabylonEngine, Scene: BabylonScene
+  UniversalCamera,
+  PointLight, HemisphericLight, 
+  MeshBuilder,
+  Vector3, Color3,
+  Texture, StandardMaterial,
+= BABYLON
 
 // call main when it feels like it
 
 Promise.resolve().then @ main
 
 async function main () ::
-  const canvas = document.getElementById @ "renderCanvas"
+  const canvas = document.getElementById @ 'renderCanvas'
   const engine = new BabylonEngine @ canvas, true
 
   const scene = await initScene @ 
@@ -17,39 +21,37 @@ async function main () ::
 
   engine.runRenderLoop @:: scene.render()
 
-  window.addEventListener @ "resize", @:: engine.resize()
+  window.addEventListener @ 'resize', @:: engine.resize()
 
 async function initScene(scene, canvas) ::
 
-  const camera = new ArcRotateCamera @
-    "Camera"
-    Math.PI / 2
-    Math.PI / 2
-    2
-    new Vector3 @ 0,0,5
+  const camera = new UniversalCamera @
+    'uniCam'
+    new Vector3 @ 0, 0, 5
     scene
 
+  camera.setTarget @ Vector3.Zero()
   camera.attachControl @ canvas, true
 
   // Add lights to the scene
   const light1 = new HemisphericLight @ 
-    "light1"
+    'light1'
     new Vector3 @ 1, 1, 0
     scene
 
   const light2 = new PointLight @ 
-    "light2"
+    'light2'
     new Vector3 @ 0, 1, -1
     scene
 
   // Add and manipulate meshes in the scene
   MeshBuilder.CreateSphere @
-    "sphere"
+    'sphere'
     {diameter:2, diameterY:4}
     scene
 
   MeshBuilder.CreateSphere @
-    "sphereTwo"
+    'sphereTwo'
     {diameter:2, diameterX:7}
     scene
 
