@@ -13,13 +13,13 @@ const _cfg_ = {
   ]}
 
 
-const cfg_nodejs = { ..._cfg_,
+const cfg_node = { ..._cfg_,
   plugins: [
     rpi_jsy({defines: {PLAT_NODEJS: true}}),
     ... _cfg_.plugins ]}
 
 const cfg_web = { ..._cfg_,
-  context: 'window'
+  context: 'window',
   plugins: [
     rpi_jsy({defines: {PLAT_WEB: true}}),
     ... _cfg_.plugins ]}

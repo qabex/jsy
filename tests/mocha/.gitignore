@@ -1,7 +1,1 @@
-cjs/
-esm/
-umd/
-dist/
-node_modules/
-npm-debug.log
-.hggitignore
+__unittest*
