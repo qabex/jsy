@@ -1,0 +1,16 @@
+const @{}
+  PointLight, HemisphericLight, 
+  Vector3, Color3,
+= BABYLON
+
+
+export async function init_lights({scene}) ::
+  const light1 = new HemisphericLight @ 
+    'light1'
+    new Vector3 @ 1, 1, 0
+    scene
+
+  const light2 = new PointLight @ 
+    'light2'
+    new Vector3 @ 0, 1, -1
+    scene

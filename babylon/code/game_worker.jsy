@@ -1,0 +1,4 @@
+import 'https://cdn.babylonjs.com/babylon.js'
+
+console.log @ 'in worker', @{} 
+    BABYLON

@@ -26,14 +26,24 @@
 </style>
 
 <script crossorigin='anonymous' src='https://cdn.jsdelivr.net/npm/superfine@7.0.0/dist/superfine.min.js'></script>
+
 <script crossorigin='anonymous' src='https://cdn.babylonjs.com/babylon.js'></script>
 <script crossorigin='anonymous' src='https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js'></script>
+
+<!-- Link to pep.js to ensure pointer events work consistently in all browsers -->
+<script src="https://code.jquery.com/pep/0.4.1/pep.js"></script>
 </head>
 
 <body>
 
 <canvas id='renderCanvas' touch-action='none'></canvas>
-<script type='module' src='./esm/index.mjs'></script>
+<script type='module'>
+    const game_worker = new Worker('./esm/game_worker.mjs', {type: 'module'})
+
+    import {uni_init_babylon} from './esm/index.mjs'
+    uni_init_babylon(document.getElementById('renderCanvas'), game_worker)
+
+</script>
 
 </body>
 </html>

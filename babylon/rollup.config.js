@@ -12,22 +12,18 @@ const _cfg_ = {
 
     rpi_jsy({defines:{}}),
   ],
-  external: [],
+  external: id => /https?:/.test(id),
 }
-
-const _out_ = { sourcemap: true }
 
 const configs = []
 export default configs
 
 
 add_jsy('index')
+add_jsy('game_worker')
+
 
 function add_jsy(src_name, opt={}) {
-  configs.push({ ..._cfg_,
-    input: `code/${src_name}.jsy`,
-    output: [
-      { ..._out_, file: `esm/${src_name}.mjs`, format: 'es' },
-      { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports: opt.exports || 'named' },
-    ]})
+  configs.push({ ..._cfg_, input: `code/${src_name}.jsy`,
+    output: { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true }})
 }

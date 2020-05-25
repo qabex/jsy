@@ -1,0 +1,13 @@
+const @{}
+  UniversalCamera,
+  Vector3, Color3,
+= BABYLON
+
+export async function init_camera({scene, canvas}) ::
+  const camera = new UniversalCamera @
+    'uniCam'
+    new Vector3(0, 0, 5)
+    scene
+
+  camera.setTarget @ Vector3.Zero()
+  camera.attachControl @ canvas, true

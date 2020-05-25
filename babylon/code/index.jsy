@@ -1,59 +1,27 @@
-const @{}
-  Engine: BabylonEngine, Scene: BabylonScene
-  UniversalCamera,
-  PointLight, HemisphericLight, 
-  MeshBuilder,
-  Vector3, Color3,
-  Texture, StandardMaterial,
-= BABYLON
+import {init_camera} from './scene/camera.jsy'
+import {init_lights} from './scene/lights.jsy'
+import {init_demo} from './scene/demo.jsy'
 
-// call main when it feels like it
 
-Promise.resolve().then @ main
+export async function uni_init_babylon(canvas) ::
+  const engine = new BABYLON.Engine @ canvas,
+    @{} alpha: true
+        antialias: true
+        audioEngine: true
+        depth: true
+        stencil: true
 
-async function main () ::
-  const canvas = document.getElementById @ 'renderCanvas'
-  const engine = new BabylonEngine @ canvas, true
-
-  const scene = await initScene @ 
-     new BabylonScene @ engine
-     canvas
+  const scene = new BABYLON.Scene(engine)
+  const scene_ctx = @{} scene, engine, canvas
+    get scene_ctx() :: return scene_ctx
+  await init_scene(scene_ctx)
 
   engine.runRenderLoop @:: scene.render()
 
   window.addEventListener @ 'resize', @:: engine.resize()
 
-async function initScene(scene, canvas) ::
 
-  const camera = new UniversalCamera @
-    'uniCam'
-    new Vector3 @ 0, 0, 5
-    scene
-
-  camera.setTarget @ Vector3.Zero()
-  camera.attachControl @ canvas, true
-
-  // Add lights to the scene
-  const light1 = new HemisphericLight @ 
-    'light1'
-    new Vector3 @ 1, 1, 0
-    scene
-
-  const light2 = new PointLight @ 
-    'light2'
-    new Vector3 @ 0, 1, -1
-    scene
-
-  // Add and manipulate meshes in the scene
-  MeshBuilder.CreateSphere @
-    'sphere'
-    {diameter:2, diameterY:4}
-    scene
-
-  MeshBuilder.CreateSphere @
-    'sphereTwo'
-    {diameter:2, diameterX:7}
-    scene
-
-  return scene
-
+async function init_scene(scene_ctx) ::
+  init_camera(scene_ctx)
+  init_lights(scene_ctx)
+  init_demo(scene_ctx)
