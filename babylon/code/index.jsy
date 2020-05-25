@@ -22,6 +22,8 @@ export async function uni_init_babylon(canvas) ::
 
 
 async function init_scene(scene_ctx) ::
+  scene_ctx.scene.enablePhysics()
+
   init_camera(scene_ctx)
   init_lights(scene_ctx)
   init_demo(scene_ctx)

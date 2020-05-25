@@ -1,4 +1,8 @@
 import 'https://cdn.babylonjs.com/babylon.js'
+import 'https://cdn.babylonjs.com/cannon.js'
 
-console.log @ 'in worker', @{} 
-    BABYLON
+const engine = new BABYLON.NullEngine @:
+    renderWidth: 512, renderHeight: 512, textureSize: 512,
+
+const scene = new BABYLON.Scene(engine)
+scene.enablePhysics()
