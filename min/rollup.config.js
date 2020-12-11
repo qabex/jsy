@@ -27,6 +27,6 @@ export default { ..._cfg_,
   input: `code/index.jsy`,
   output: [
     { ..._out_, file: pkg.module, format: 'es' },
-    { ..._out_, file: pkg.main, format: 'cjs', exports:'default' },
+    //{ ..._out_, file: pkg.main, format: 'cjs', exports:'default' },
   ]}
 

@@ -49,7 +49,7 @@ function add_jsy(src_name, opt={}) {
 
   if (cfg_nodejs)
     configs.push({ ... cfg_nodejs, input, output: [
-      { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports:opt.exports || 'named' },
+      //{ ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports:opt.exports || 'named' },
       { ..._out_, file: `esm/${src_name}.mjs`, format: 'es' } ]})
 
   if (cfg_web)

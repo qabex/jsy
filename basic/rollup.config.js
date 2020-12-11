@@ -38,7 +38,7 @@ function add_jsy(src_name, opt={}) {
 
   configs.push({ ..._cfg_, input, output: [
     { ..._out_, file: `esm/${src_name}.mjs`, format: 'es' },
-    { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports: opt.exports || 'named' },
+    //{ ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports: opt.exports || 'named' },
     //{ ..._out_, file: `umd/${src_name}.js`, format: 'umd', name:module_name, exports: opt.exports || 'named' },
   ]})
 

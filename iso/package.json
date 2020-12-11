@@ -7,8 +7,10 @@
     "esm/",
     "umd/"
   ],
-  "main": "./cjs/index.cjs",
+  "//main": "./cjs/index.cjs",
+  "main": "./esm/index.mjs",
   "module": "./esm/index.mjs",
+  "browser": "./esm/index.mjs",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
