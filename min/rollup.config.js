@@ -20,13 +20,8 @@ const _cfg_ = {
 // const cfg_web_min = { ... _cfg_,
 //   plugins: [ ... _cfg_.plugins, rpi_terser() ]}
 
-const _out_ = { sourcemap: true }
-
 
 export default { ..._cfg_,
   input: `code/index.jsy`,
-  output: [
-    { ..._out_, file: pkg.module, format: 'es' },
-    //{ ..._out_, file: pkg.main, format: 'cjs', exports:'default' },
-  ]}
+  output: { file: pkg.module, format: 'es', sourcemap: true }}
 

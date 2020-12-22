@@ -14,8 +14,6 @@ const _cfg_ = {
   external: [],
 }
 
-const _out_ = { sourcemap: true, exports:'named' }
-
 const configs = []
 export default configs
 
@@ -27,7 +25,7 @@ function add_jsy(src_name, module_name) {
   configs.push({ ..._cfg_,
     input: `${src_name}.jsy`,
     output: [
-      { ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs',  },
-      { ..._out_, file: `iife/${src_name}.js`, format: 'iife', name: src_name },
+      { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
+      { file: `iife/${src_name}.js`, format: 'iife', name: src_name, sourcemap: true },
     ]})
 }

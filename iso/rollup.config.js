@@ -33,8 +33,6 @@ const cfg_web = { ..._cfg_,
 //   plugins: [ ... cfg_web.plugins, rpi_terser() ]}
 
 
-const _out_ = { sourcemap: true }
-
 const configs = []
 export default configs
 
@@ -49,16 +47,16 @@ function add_jsy(src_name, opt={}) {
 
   if (cfg_nodejs)
     configs.push({ ... cfg_nodejs, input, output: [
-      //{ ..._out_, file: `cjs/${src_name}.cjs`, format: 'cjs', exports:opt.exports || 'named' },
-      { ..._out_, file: `esm/${src_name}.mjs`, format: 'es' } ]})
+      //{ file: `cjs/${src_name}.cjs`, format: 'cjs', exports:opt.exports || 'named', sourcemap: true },
+      { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true } ]})
 
   if (cfg_web)
     configs.push({ ... cfg_web, input, output: [
-      //{ ..._out_, file: `umd/${src_name}.js`, format: 'umd', name:module_name, exports:opt.exports || 'named' },
-      { ..._out_, file: `esm/web/${src_name}.mjs`, format: 'es' } ]})
+      //{ file: `umd/${src_name}.js`, format: 'umd', name:module_name, exports:opt.exports || 'named', sourcemap: true },
+      { file: `esm/web/${src_name}.mjs`, format: 'es', sourcemap: true } ]})
 
   if ('undefined' !== typeof cfg_web_min)
     configs.push({ ... cfg_web_min, input, output: [
-      //{ ..._out_, file: `umd/${src_name}.min.js`, format: 'umd', name:module_name, exports:opt.exports || 'named', sourcemap: false }
-      { ..._out_, file: `esm/web/${src_name}.min.mjs`, format: 'es', sourcemap: false } ]})
+      //{ file: `umd/${src_name}.min.js`, format: 'umd', name:module_name, exports:opt.exports || 'named', sourcemap: false }
+      { file: `esm/web/${src_name}.min.mjs`, format: 'es', sourcemap: false } ]})
 }
