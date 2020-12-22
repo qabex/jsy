@@ -14,18 +14,16 @@ const _cfg_ = {
   external: [],
 }
 
-const configs = []
-export default configs
+export default [
+  ... add_jsy('bench_this'),
+]
 
 
-add_jsy('bench_this')
-
-
-function add_jsy(src_name, module_name) {
-  configs.push({ ..._cfg_,
+function * add_jsy(src_name, module_name) {
+  yield { ..._cfg_,
     input: `${src_name}.jsy`,
     output: [
       { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
       { file: `iife/${src_name}.js`, format: 'iife', name: src_name, sourcemap: true },
-    ]})
+    ]}
 }

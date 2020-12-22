@@ -15,15 +15,14 @@ const _cfg_ = {
   external: id => /https?:/.test(id),
 }
 
-const configs = []
-export default configs
+
+export default [
+  ... add_jsy('index'),
+  ... add_jsy('game_worker'),
+]
 
 
-add_jsy('index')
-add_jsy('game_worker')
-
-
-function add_jsy(src_name, opt={}) {
-  configs.push({ ..._cfg_, input: `code/${src_name}.jsy`,
-    output: { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true }})
+function * add_jsy(src_name, opt={}) {
+  yield { ..._cfg_, input: `code/${src_name}.jsy`,
+    output: { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true }},
 }
