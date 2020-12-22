@@ -30,7 +30,6 @@ export default [
 
 function * add_jsy(src_name, opt={}) {
   const input = `code/${src_name}${opt.ext || '.jsy'}`
-  //const module_name = opt.name || `${pkg_name}_${src_name}`
 
   yield { ..._cfg_, input,
     output: { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true }}
