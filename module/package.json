@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "files": [
+    "cjs/",
+    "code/",
+    "esm/",
+    "umd/"
+  ],
+  "type": "module",
+  "//main": "./cjs/index.cjs",
+  "main": "./esm/index.mjs",
+  "module": "./esm/index.mjs",
+  "browser": "./esm/index.mjs",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "start": "npx tmex $PWD -l 12 -r -n _cli test watch",
+    "clean": "rm -rf ./cjs/* ./esm/* ./umd/*",
+    "build": "rollup --config",
+    "watch": "npm -s run build -- --watch",
+    "pretest": "npm -s run build",
+    "test": "true"
+  }
+}
