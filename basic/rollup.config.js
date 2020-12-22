@@ -42,5 +42,5 @@ function * add_jsy(src_name, opt={}) {
   if ('undefined' !== typeof _cfg_min_)
     yield { ... _cfg_min_, input, output: [
       //{ file: `umd/${src_name}.min.js`, format: 'umd', name:module_name, exports:opt.exports || 'named', sourcemap: false }
-      { file: `esm/${src_name}.min.mjs`, format: 'es', sourcemap: false } ]})
+      { file: `esm/${src_name}.min.mjs`, format: 'es', sourcemap: false } ]}
 }
