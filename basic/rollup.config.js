@@ -16,7 +16,7 @@ const _rpis_ = (defines, ...args) => [
 
 const _cfg_ = {
   external: id => /^node:/.test(id) || builtinModules.includes(id),
-  plugins: _rpis_({})
+  plugins: _rpis_({}) }
 
 
 // Allow Minification -- https://github.com/TrySound/rollup-plugin-terser
