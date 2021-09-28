@@ -10,12 +10,14 @@
     "./esm/*": "./esm/*",
     ".": "./esm/index.mjs"
   },
+  "workspaces": [],
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "clean": "rm -rf ./esm/*",
+    "prebuild": "test -d ./node_modules || npm ci",
     "build": "rollup --config",
-    "watch": "npm -s run build -- --watch",
+    "watch": "rollup --config --watch",
     "pretest": "npm -s run build",
     "test": "true"
   }
