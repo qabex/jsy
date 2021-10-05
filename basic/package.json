@@ -18,6 +18,8 @@
     "prebuild": "test -d ./node_modules || npm ci",
     "build": "rollup --config",
     "watch": "rollup --config --watch",
+    "prestart": "npm -s run build",
+    "start": "watchexec @.watchexec -w ./esm -- node ./esm/index.mjs",
     "pretest": "npm -s run build",
     "test": "true"
   }
