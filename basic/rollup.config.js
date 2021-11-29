@@ -5,6 +5,8 @@ import rpi_resolve from '@rollup/plugin-node-resolve'
 // import rpi_commonjs from '@rollup/plugin-commonjs'
 // import { terser as rpi_terser } from 'rollup-plugin-terser'
 
+//import pkg from './package.json'
+//pkg.dependencies ||= {} // ensure a dependencies dict
 
 const _rpis_ = (defines, ...args) => [
   rpi_jsy({defines}),
@@ -15,7 +17,11 @@ const _rpis_ = (defines, ...args) => [
 
 
 const _cfg_ = {
-  external: id => /^\w+:/.test(id) || builtinModules.includes(id),
+  external: id => (
+       /^\w+:/.test(id)
+    || builtinModules.includes(id)
+    //|| !! pkg.dependencies[id]
+    ),
   plugins: _rpis_({}) }
 
 
