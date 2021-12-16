@@ -39,10 +39,13 @@ export default [
 function * add_jsy(src_name, opt={}) {
   const input = `code/${src_name}${opt.ext || '.jsy'}`
 
-  yield { ..._cfg_, input,
-    output: [{ file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true }]}
+  yield { ..._cfg_, input, output: [
+      { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true },
+      // { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
+    ].filter(Boolean)}
 
   if (_cfg_min_)
-    yield { ... _cfg_min_, input,
-      output: [{ file: `esm/${src_name}.min.mjs`, format: 'es', sourcemap: false }]}
+    yield { ... _cfg_min_, input, output: [
+        { file: `esm/${src_name}.min.mjs`, format: 'es', sourcemap: false },
+      ].filter(Boolean)}
 }

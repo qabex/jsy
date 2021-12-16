@@ -34,7 +34,7 @@ function * add_jsy(src_name, opt={}) {
 
   yield { ..._cfg_, input, output: [
       { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true },
-      { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
+      // { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
     ].filter(Boolean)}
 
 }

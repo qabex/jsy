@@ -6,6 +6,11 @@
     "cjs/",
     "esm/"
   ],
+  "type": "module",
+  "exports": {
+    "./esm/*": "./esm/*",
+    ".": "./esm/index.mjs"
+  },
   "workspaces": [],
   "dependencies": {},
   "devDependencies": {},

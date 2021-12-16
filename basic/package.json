@@ -15,7 +15,7 @@
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "clean": "rm -rf ./esm/*",
+    "clean": "rm -rf ./esm/* ./cjs/*",
     "prebuild": "test -d ./node_modules || npm ci",
     "build": "rollup --config",
     "watch": "rollup --config --watch",
