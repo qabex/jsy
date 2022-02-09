@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [],
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "demo": "node --loader @jsy-lang/nodejs zx_demo.jsy",
+    "watch_demo": "watchexec @.watchexec -w . -- node --loader @jsy-lang/nodejs ./zx_demo.jsy"
+  }
+}
