@@ -3,8 +3,7 @@ import rpi_jsy from 'rollup-plugin-jsy'
 import rpi_dgnotify from 'rollup-plugin-dgnotify'
 import rpi_resolve from '@rollup/plugin-node-resolve'
 
-import pkg from './package.json'
-
+import pkg from './package.json' // allow use of Node CommonJS modules without Rollup in the middle
 pkg.dependencies ||= {} // ensure a dependencies dict
 
 const _rpis_ = (defines, ...args) => [
@@ -18,7 +17,7 @@ const _cfg_ = {
   external: id => (
        /^\w+:/.test(id)
     || builtinModules.includes(id)
-    || !! pkg.dependencies[id]
+    || !! pkg.dependencies[id] // allow use of Node CommonJS modules without Rollup in the middle
     ),
   plugins: _rpis_({}) }
 
