@@ -20,7 +20,7 @@ const _rpis_ = (defines, ...args) => [
 
 const _cfg_ = {
   external: id => (
-       /^\w+:/.test(id)
+       /^\w*:|^\/cdn\//.test(id)
     || builtinModules.includes(id)
     || !! pkg.dependencies[id] // allow use of Node CommonJS modules without Rollup in the middle
     ),
