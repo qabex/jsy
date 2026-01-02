@@ -3,25 +3,24 @@
   "version": "0.0.0",
   "files": [
     "code/",
-    "cjs/",
     "esm/"
   ],
   "type": "module",
   "exports": {
     "./esm/*": "./esm/*",
-    ".": "./esm/index.mjs"
+    ".": "./esm/index.js"
   },
   "workspaces": [],
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
-    "clean": "rm -rf ./esm/* ./cjs/*",
+    "clean": "rm -rf ./esm/*",
     "prebuild": "test -d ./node_modules || npm ci",
     "build": "rollup --config",
     "watch": "rollup --config --watch",
     "prestart": "npm -s run build",
-    "start": "watchexec @.watchexec -w ./esm -- node --enable-source-maps ./esm/index.mjs",
-    "pretest": "npm -s run build",
+    "start": "node --watch --enable-source-maps ./esm/index.js",
+    "pretest": "test -f ./esm/index.js || npm -s run build",
     "test": "true"
   }
 }

@@ -1,39 +1,22 @@
-import {builtinModules} from 'module'
-import rpi_jsy from 'rollup-plugin-jsy'
-import rpi_dgnotify from 'rollup-plugin-dgnotify'
 import rpi_resolve from '@rollup/plugin-node-resolve'
+import rpi_jsy from '@jsy-lang/jsy/esm/rollup.js'
 
-import pkg from './package.json' // allow use of Node CommonJS modules without Rollup in the middle
-pkg.dependencies ||= {} // ensure a dependencies dict
-
-const _rpis_ = (defines, ...args) => [
-  rpi_jsy({defines}),
+const external = id => /^\w*:/.test(id)
+const _rpis_ = [
+  rpi_jsy(),
   rpi_resolve(),
-  ...args,
-  rpi_dgnotify()]
-
-
-const _cfg_ = {
-  external: id => (
-       /^\w*:/.test(id)
-    || builtinModules.includes(id)
-    || !! pkg.dependencies[id] // allow use of Node CommonJS modules without Rollup in the middle
-    ),
-  plugins: _rpis_({}) }
-
+]
 
 export default [
   ... add_jsy('index'),
 ]
 
 
-
-function * add_jsy(src_name, opt={}) {
-  const input = `code/${src_name}${opt.ext || '.jsy'}`
-
-  yield { ..._cfg_, input, output: [
-      { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true },
-      // { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
+function * add_jsy(src_name) {
+  yield { input: `code/${src_name}.jsy`,
+    plugins_: _rpis_,
+    external,
+    output: [
+      { file: `esm/${src_name}.js`, format: 'es', sourcemap: true },
     ].filter(Boolean)}
-
 }

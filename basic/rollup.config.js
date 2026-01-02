@@ -1,36 +1,15 @@
-import {builtinModules} from 'module'
-import rpi_jsy from 'rollup-plugin-jsy'
-import rpi_dgnotify from 'rollup-plugin-dgnotify'
 import rpi_resolve from '@rollup/plugin-node-resolve'
-// import { terser as rpi_terser } from 'rollup-plugin-terser' // if you want minification
+import rpi_jsy from '@jsy-lang/jsy/esm/rollup.js'
+import rpi_terser from '@rollup/plugin-terser'
 
-import pkg from './package.json' // allow use of Node CommonJS modules without Rollup in the middle
-if (0 !== Object.entries(pkg.dependencies ||= {}).length) {
-  // Remove this warning block when making a NodeJS-only library.
-  // If making an ES6 targeted library for Browser/Deno/NodeJS, it should likely be moved to devDependencies.
-  console.warn('[WARN:Rollup Config] pkg.dependencies detected -- problematic for ES6 browser-only libraries. Please tailor rollup.config.js to reflect your intentions')
-}
-
-const _rpis_ = (defines, ...args) => [
-  rpi_jsy({defines}),
+const external = id => /^\w*:/.test(id)
+const _rpis_ = [
+  rpi_jsy(),
   rpi_resolve(),
-  ...args,
-  rpi_dgnotify()]
+]
 
-
-const _cfg_ = {
-  external: id => (
-       /^\w*:/.test(id)
-    || builtinModules.includes(id)
-    || !! pkg.dependencies[id] // allow use of Node CommonJS modules without Rollup in the middle
-    ),
-  plugins: _rpis_({}) }
-
-
-// Allow Minification -- https://github.com/TrySound/rollup-plugin-terser
 let is_watch = process.argv.includes('--watch')
-const _cfg_min_ = is_watch || 'undefined'===typeof rpi_terser ? null
-  : { ... _cfg_, plugins: [ ... _cfg_.plugins, rpi_terser() ]}
+const _rpi_min_ = is_watch ? null : [ rpi_terser() ]
 
 
 export default [
@@ -38,17 +17,13 @@ export default [
 ]
 
 
-
-function * add_jsy(src_name, opt={}) {
-  const input = `code/${src_name}${opt.ext || '.jsy'}`
-
-  yield { ..._cfg_, input, output: [
-      { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true },
-      // { file: `cjs/${src_name}.cjs`, format: 'cjs', sourcemap: true },
+function * add_jsy(src_name) {
+  yield { input: `code/${src_name}.jsy`,
+    plugins_: _rpis_,
+    external,
+    output: [
+      { file: `esm/${src_name}.js`, format: 'es', sourcemap: true },
+      _rpi_min_ &&
+        { plugins: _rpi_min_, file: `esm/${out_name}.min.js`, format: 'es', sourcemap: true },
     ].filter(Boolean)}
-
-  if (_cfg_min_)
-    yield { ... _cfg_min_, input, output: [
-        { file: `esm/${src_name}.min.mjs`, format: 'es', sourcemap: false },
-      ].filter(Boolean)}
 }
