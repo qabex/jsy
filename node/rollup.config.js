@@ -7,6 +7,9 @@ const _rpis_ = [
   rpi_resolve(),
 ]
 
+let is_watch = process.argv.includes('--watch')
+
+
 export default [
   ... add_jsy('index'),
 ]
@@ -14,7 +17,7 @@ export default [
 
 function * add_jsy(src_name) {
   yield { input: `code/${src_name}.jsy`,
-    plugins_: _rpis_,
+    plugins: _rpis_,
     external,
     output: [
       { file: `esm/${src_name}.js`, format: 'es', sourcemap: true },

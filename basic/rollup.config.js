@@ -19,11 +19,11 @@ export default [
 
 function * add_jsy(src_name) {
   yield { input: `code/${src_name}.jsy`,
-    plugins_: _rpis_,
+    plugins: _rpis_,
     external,
     output: [
       { file: `esm/${src_name}.js`, format: 'es', sourcemap: true },
       _rpi_min_ &&
-        { plugins: _rpi_min_, file: `esm/${out_name}.min.js`, format: 'es', sourcemap: true },
+        { plugins: _rpi_min_, file: `esm/${src_name}.min.js`, format: 'es', sourcemap: true },
     ].filter(Boolean)}
 }
